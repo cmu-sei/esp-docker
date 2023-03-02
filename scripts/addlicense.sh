@@ -2,9 +2,9 @@
 
 license=$(<./scripts/License.txt)
 
-FILES="Dockerfile
-     README.md
-     Xilinx.lic
+FILES="./Dockerfile
+     ./README.md
+     ./Xilinx.lic
      ./env/README.md
      ./esp/accelerators/vivado_hls/README.md
      ./esp/socs/README.md
@@ -15,5 +15,5 @@ FILES="Dockerfile
 
 for f in $FILES; do
     echo "Adding license to $f."
-    printf '%s\n%s\n' "$license" "$(cat $f)" > $f
+    #printf '%s\n%s\n' "$license" "$(cat $f)" > $f
 done
