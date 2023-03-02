@@ -2,8 +2,6 @@
 
 license=$(<./scripts/License.txt)
 
-echo "$license"
-
 FILES="Dockerfile
      README.md
      Xilinx.lic
@@ -16,5 +14,6 @@ FILES="Dockerfile
      ./scripts/gitconfig"
 
 for f in $FILES; do
+    echo "Adding license to $f."
     printf '%s\n%s\n' "$license" "$(cat $f)" > $f
 done
