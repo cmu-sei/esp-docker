@@ -1,6 +1,6 @@
 #!/bin/bash
 
-license=$(<./scripts/License.txt)
+license="$(<./scripts/License.txt)"
 
 FILES="./Dockerfile
      ./README.md
