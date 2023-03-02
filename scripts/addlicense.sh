@@ -15,5 +15,5 @@ FILES="./Dockerfile
 
 for f in $FILES; do
     echo "Adding license to $f."
-    printf '%s\n%s\n' "$license" "$(cat $f)" > $f
+    printf '%s\n%s\n' "$license" "$(cat $f)" > "$f"
 done
