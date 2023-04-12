@@ -125,6 +125,8 @@ RUN apt-get update \
 # -l on adduser is to handle large uids, e.g.,
 # https://github.com/moby/moby/issues/5419
 RUN useradd -l -ms /bin/bash espuser && \
+    usermod -aG dialout espuser && \
+    usermod -aG plugdev espuser && \
     usermod -aG sudo espuser && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
