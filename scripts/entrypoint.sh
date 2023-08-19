@@ -35,13 +35,13 @@ if [ "${UID}" -eq "0" ] || [ -z "$GID" ] ; then
     echo "Add -e UID=\$(id -u) -e GID=\$(id -g) to your docker run command."
     exit 1
 fi
-echo "Changing UID and GID for espuser to host values. This can take a few minutes."
+echo "Changing UID and GID for espuser to host values."
 usermod -d /tmp/home/espuser espuser
 usermod -u ${UID} espuser
 groupmod -g ${GID} espuser
 usermod -d /home/espuser espuser
 
-echo "Setting permissions."
+echo "Setting permissions. This can take a few minutes."
 chown -R espuser:espuser /home/espuser
 
 # change user
