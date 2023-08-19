@@ -42,7 +42,10 @@ groupmod -g ${GID} espuser
 usermod -d /home/espuser espuser
 
 echo "Setting permissions. This can take a few minutes."
-chown -R espuser:espuser /home/espuser
+chown espuser:espuser /home/espuser
+chown -R espuser:espuser /home/espuser/esp/accelerators
+chown -R espuser:espuser /home/espuser/esp/socs
+chown -R espuser:espuser /home/espuser/esp/tech
 
 # change user
 echo "Changing to espuser."
