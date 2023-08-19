@@ -50,7 +50,7 @@ cp ~/.Xauthority ./env/
 # put your Xilinx license into env, or change path in scripts/bash_aliases.
 cp /path/to/Xilinx.lic ./env/
 # run docker
-docker compose run esp
+docker compose run -e UID=$(id -u) -e GID=$(id -g) esp
 # or
 docker run --rm -it --privileged --network=host -e DISPLAY=$DISPLAY -e UID=$(id -u) -e GID=$(id -g) -v`pwd`/work:/home/espuser/work:rw -v`pwd`/env:/home/espuser/env:rw -v`pwd`/esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc -v`pwd`/esp/accelerators/vivado_hls/ldpc_vivado:/home/espuser/esp/accelerators/vivado_hls/ldpc_vivado -v/tools/Xilinx:/tools/Xilinx esp:2023.1.0
 ```
