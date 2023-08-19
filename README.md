@@ -47,6 +47,11 @@ git clone ssh://path/to/some_repo.git
 ```
 # X forwarding
 cp ~/.Xauthority ./env/
+# put your Xilinx license into env
+cp /path/to/Xilinx.lic ./env/
+# run docker
+docker compose run esp
+# or
 docker run --rm -it --privileged --network=host -e DISPLAY=$DISPLAY -e UID=$(id -u) -e GID=$(id -g) -v`pwd`/work:/home/espuser/work:rw -v`pwd`/env:/home/espuser/env:rw -v`pwd`/esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc -v`pwd`/esp/accelerators/vivado_hls/ldpc_vivado:/home/espuser/esp/accelerators/vivado_hls/ldpc_vivado -v/tools/Xilinx:/tools/Xilinx esp:2023.1.0
 ```
 

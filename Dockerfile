@@ -147,9 +147,6 @@ RUN git clone --recursive https://github.com/sld-columbia/esp.git && \
 ADD scripts ./scripts
 COPY ./scripts/bash_aliases /home/espuser/.bash_aliases
 
-# bring xilinx license. Environment variable set in entrypoint.sh
-COPY --chown=espuser:espuser Xilinx.lic .
-
 # go in as root and change user in entrypoint.sh
 USER root
 # set entrypoint
