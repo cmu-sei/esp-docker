@@ -47,7 +47,7 @@ git clone ssh://path/to/some_repo.git
 ```
 # X forwarding
 cp ~/.Xauthority ./env/
-# put your Xilinx license into env
+# put your Xilinx license into env, or change path in scripts/bash_aliases.
 cp /path/to/Xilinx.lic ./env/
 # run docker
 docker compose run esp
