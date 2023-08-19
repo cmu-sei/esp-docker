@@ -43,9 +43,11 @@ usermod -d /home/espuser espuser
 
 echo "Setting permissions. This can take a few minutes."
 chown espuser:espuser /home/espuser
+chown -R espuser:espuser /home/espuser/env
 chown -R espuser:espuser /home/espuser/esp/accelerators
 chown -R espuser:espuser /home/espuser/esp/socs
 chown -R espuser:espuser /home/espuser/esp/tech
+chown -R espuser:espuser /home/espuser/work
 
 # change user
 echo "Changing to espuser."
