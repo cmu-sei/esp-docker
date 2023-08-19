@@ -13,8 +13,9 @@ services:
     privileged: true
     volumes:
       - ./env:/home/espuser/env
-      - ./esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc
       - ./esp/accelerators/vivado_hls/ldpc_vivado:/home/espuser/esp/accelerators/vivado_hls/ldpc_vivado
+      - ./esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc
+      - ./work:/home/espuser/work
       - xilinx:/tools:rw
 
   vivado:
