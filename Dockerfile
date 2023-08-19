@@ -35,92 +35,88 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /home
 
-ARG PROXY
-ENV HTTP_PROXY=${PROXY}
-ENV HTTPS_PROXY=${PROXY}
-
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y \
-       autoconf \
-       bc \
-       bison \
-       build-essential \
-       bzip2 \
-       cmake \
-       cpio \
-       csh \
-       curl \
-       device-tree-compiler \
-       dh-autoreconf \
-       emacs \
-       environment-modules \
-       file \
-       flex \
-       gawk \
-       gcc-multilib \
-       git \
-       help2man \
-       jq \
-       ksh \
-       libgdbm-dev \
-       libgl1-mesa-dev \
-       libgl1-mesa-dri \
-       libgl1-mesa-glx \
-       libglu1-mesa \
-       libmotif-dev \
-       libmpc-dev \
-       libncurses5 \
-       libncurses-dev \
-       libnspr4 \
-       libnspr4-dev \
-       libopencv-dev \
-       libreadline-dev \
-       libsm-dev \
-       libxcursor-dev \
-       libxft-dev \
-       libxml-perl \
-       libxpm-dev \
-       libxrandr-dev \
-       libxss-dev \
-       libyaml-perl \
-       locales \
-       ninja-build \
-       minicom \
-       net-tools \
-       octave \
-       octave-io \
-       patch \
-       perl \
-       python \
-       python3 \
-       python3-pip \
-       python3-tk \
-       qtcreator \
-       rename \
-       rsync \
-       socat \
-       software-properties-common \
-       sudo \
-       tcl \
-       texinfo \
-       tig \
-       tk \
-       tk-dev \
-       tmux \
-       unzip \
-       wget \
-       x11-apps \
-       xterm \
-       xvfb \
-       zlib1g-dev \
-       zsh \
-       && pip3 install Pmw \
-       && locale-gen en_US.UTF-8 \
-       && apt-get autoremove \
-       && rm -rf /var/lib/apt/lists/* \
-       && rm -rf /tmp/*
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+    autoconf \
+    bc \
+    bison \
+    build-essential \
+    bzip2 \
+    cmake \
+    cpio \
+    csh \
+    curl \
+    device-tree-compiler \
+    dh-autoreconf \
+    emacs \
+    environment-modules \
+    file \
+    flex \
+    gawk \
+    gcc-multilib \
+    git \
+    help2man \
+    jq \
+    ksh \
+    libgdbm-dev \
+    libgl1-mesa-dev \
+    libgl1-mesa-dri \
+    libgl1-mesa-glx \
+    libglu1-mesa \
+    libmotif-dev \
+    libmpc-dev \
+    libncurses5 \
+    libncurses-dev \
+    libnspr4 \
+    libnspr4-dev \
+    libopencv-dev \
+    libreadline-dev \
+    libsm-dev \
+    libxcursor-dev \
+    libxft-dev \
+    libxml-perl \
+    libxpm-dev \
+    libxrandr-dev \
+    libxss-dev \
+    libyaml-perl \
+    locales \
+    ninja-build \
+    minicom \
+    net-tools \
+    octave \
+    octave-io \
+    patch \
+    perl \
+    python \
+    python3 \
+    python3-pip \
+    python3-tk \
+    qtcreator \
+    rename \
+    rsync \
+    socat \
+    software-properties-common \
+    sudo \
+    tcl \
+    texinfo \
+    tig \
+    tk \
+    tk-dev \
+    tmux \
+    unzip \
+    wget \
+    x11-apps \
+    xterm \
+    xvfb \
+    zlib1g-dev \
+    zsh && \
+    pip3 install Pmw && \
+    locale-gen en_US.UTF-8 && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/*
 
 # -l on adduser is to handle large uids, e.g.,
 # https://github.com/moby/moby/issues/5419

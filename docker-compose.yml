@@ -1,0 +1,26 @@
+services:
+  esp:
+    build: .
+    command: /bin/bash
+    depends_on:
+      - vivado
+    environment:
+      - DISPLAY
+    image: esp:2023.1.0
+    network_mode: host
+    ports:
+      - "127.0.0.1:3121-3122:3121-3122"
+    privileged: true
+    volumes:
+      - ./env:/home/espuser/env
+      - ./esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc
+      - ./esp/accelerators/vivado_hls/ldpc_vivado:/home/espuser/esp/accelerators/vivado_hls/ldpc_vivado
+      - xilinx:/tools:rw
+
+  vivado:
+    image: vivado:18.04_2019.2
+    volumes:
+      - xilinx:/tools:rw
+
+volumes:
+  xilinx:

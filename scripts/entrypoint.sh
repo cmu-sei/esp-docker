@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Docker container for ESP use
 # Copyright 2023 Carnegie Mellon University.
 # MIT (SEI)
@@ -28,16 +30,17 @@
 # Government use and distribution.
 # DM23-0186
 
-
-#!/bin/bash
-
-# check that values present for user id
-if [ -z "${UID}" ]; then
-    echo "Add -e UID=\$(id -u) to your docker run command."
+# check that values present for user and group id
+if [ "${UID}" -eq "0" ] || [ -z "$GID" ] ; then
+    echo "Add -e UID=\$(id -u) -e GID=\$(id -g) to your docker run command."
     exit 1
 fi
-echo "Changing UID for espuser to host UID. This can take a few minutes."
+echo "Changing UID and GID for espuser to host values. This can take a few minutes."
+usermod -d /tmp/home/espuser espuser
 usermod -u ${UID} espuser
+groupmod -g ${GID} espuser
+usermod -d /home/espuser espuser
+
 echo "Setting permissions."
 chown -R espuser:espuser /home/espuser
 
