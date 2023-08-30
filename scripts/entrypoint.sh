@@ -43,6 +43,7 @@ usermod -d /home/espuser espuser
 
 echo "Setting permissions. This can take a few minutes."
 chown espuser:espuser /home/espuser
+chown -R espuser:espuser /home/espuser/.cache
 chown -R espuser:espuser /home/espuser/env
 chown -R espuser:espuser /home/espuser/esp/accelerators
 chown -R espuser:espuser /home/espuser/esp/socs
