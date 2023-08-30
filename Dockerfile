@@ -144,6 +144,15 @@ RUN git clone --recursive https://github.com/sld-columbia/esp.git && \
     (echo y; echo /home/espuser/riscv; echo 20; echo n; echo n; echo n) | bash utils/toolchain/build_riscv_toolchain.sh && rm -rf /tmp/_riscv_build
 
 # hls4ml
+USER root
+RUN apt-get update && \
+    apt-get upgrade && \
+    apt-get install -y graphviz && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/*
+USER espuser
+
 ENV CONDAPATH=/home/espuser/miniconda3
 RUN curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh && \
     bash Miniconda3-latest-Linux-x86_64.sh -b && \
@@ -156,6 +165,7 @@ RUN curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
     pip install \
     matplotlib \
     numpy \
+    pydot \
     pyparsing \
     tensorflow==2.12.* \
     tensorrt \
