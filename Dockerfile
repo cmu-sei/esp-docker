@@ -143,44 +143,9 @@ RUN git clone --recursive https://github.com/sld-columbia/esp.git && \
     cd /home/espuser/esp && \
     (echo y; echo /home/espuser/riscv; echo 20; echo n; echo n; echo n) | bash utils/toolchain/build_riscv_toolchain.sh && rm -rf /tmp/_riscv_build
 
-# hls4ml
-USER root
-RUN apt-get update && \
-    apt-get upgrade && \
-    apt-get install -y graphviz && \
-    apt-get autoremove && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/*
-USER espuser
-
-ENV CONDAPATH=/home/espuser/miniconda3
-RUN curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh && \
-    bash Miniconda3-latest-Linux-x86_64.sh -b && \
-    source ${CONDAPATH}/etc/profile.d/conda.sh && \
-    conda init bash && \
-    conda update -n base -c defaults conda && \
-    conda create --name hls4ml python=3.10 && \
-    conda activate hls4ml && \
-    pip install --upgrade pip && \
-    pip install \
-    matplotlib \
-    numpy \
-    pydot \
-    pyparsing \
-    tensorflow==2.12.* \
-    tensorrt \
-    torch==2.0.1 \
-    tqdm && \
-    git clone https://github.com/hls-fpga-machine-learning/hls4ml.git && \
-    cd hls4ml && \
-    pip install .
-
 # add files.
 ADD scripts ./scripts
 COPY ./scripts/bash_aliases /home/espuser/.bash_aliases
-
-# echo conda activate to end of .bashrc since bash_aliases comes before conda
-RUN echo "conda activate hls4ml" >> .bashrc
 
 # go in as root and change user in entrypoint.sh
 USER root
