@@ -28,7 +28,6 @@
 # Government use and distribution.
 # DM23-0186
 
-export XAUTHORITY=/home/espuser/env/.Xauthority
 export XILINXD_LICENSE_FILE=/home/espuser/env/Xilinx.lic
 export VIVADO_PATH=/tools/Xilinx/Vivado/2019.2
 . ${VIVADO_PATH}/settings64.sh
