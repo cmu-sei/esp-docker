@@ -43,7 +43,9 @@ services:
     volumes:
       - ./env:/home/espuser/env
       - ./esp/accelerators/vivado_hls/ldpc_vivado:/home/espuser/esp/accelerators/vivado_hls/ldpc_vivado
+      - ./esp/accelerators/hls4ml/pytorch-iris_hls4ml:/home/espuser/esp/accelerators/hls4ml/pytorch-iris_hls4ml
       - ./esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc
+      - ./esp/socs/pytorch-iris-soc:/home/espuser/esp/socs/pytorch-iris-soc
       - ./work:/home/espuser/work
       - xilinx:/tools:rw
 
