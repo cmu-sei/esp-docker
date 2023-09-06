@@ -120,8 +120,12 @@ RUN apt-get update && \
 
 # -l on adduser is to handle large uids, e.g.,
 # https://github.com/moby/moby/issues/5419
-RUN useradd -l -ms /bin/bash espuser && \
+RUN groupadd -g 1000 dockeruser && \
+    groupadd -g 18 fpga && \
+    useradd -l -ms /bin/bash espuser && \
     usermod -aG dialout espuser && \
+    usermod -aG dockeruser espuser && \
+    usermod -aG fpga espuser && \
     usermod -aG plugdev espuser && \
     usermod -aG sudo espuser && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -149,5 +153,6 @@ COPY ./scripts/bash_aliases /home/espuser/.bash_aliases
 
 # go in as root and change user in entrypoint.sh
 USER root
+COPY ./scripts/minirc.dfl /etc/minicom
 # set entrypoint
 ENTRYPOINT ["./scripts/entrypoint.sh"]

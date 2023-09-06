@@ -42,6 +42,7 @@ groupmod -g ${GID} espuser
 usermod -d /home/espuser espuser
 
 echo "Setting permissions. This can take a few minutes."
+# large UID's take longer ...
 chown espuser:espuser /home/espuser
 chown espuser:espuser /home/espuser/.bash_aliases
 chown -R espuser:espuser /home/espuser/env
@@ -49,6 +50,8 @@ chown -R espuser:espuser /home/espuser/esp/accelerators
 chown -R espuser:espuser /home/espuser/esp/socs
 chown -R espuser:espuser /home/espuser/esp/tech
 chown -R espuser:espuser /home/espuser/work
+# dockeruser has a shorter GID
+chmod -R g+rwX /home/espuser/esp/soft/ariane
 
 # change user
 echo "Changing to espuser."
