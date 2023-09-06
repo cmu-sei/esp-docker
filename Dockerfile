@@ -98,6 +98,7 @@ RUN apt-get update && \
     rsync \
     socat \
     software-properties-common \
+    sshpass \
     sudo \
     tcl \
     texinfo \
@@ -120,11 +121,9 @@ RUN apt-get update && \
 
 # -l on adduser is to handle large uids, e.g.,
 # https://github.com/moby/moby/issues/5419
-RUN groupadd -g 1000 dockeruser && \
-    groupadd -g 18 fpga && \
+RUN groupadd -g 18 fpga && \
     useradd -l -ms /bin/bash espuser && \
     usermod -aG dialout espuser && \
-    usermod -aG dockeruser espuser && \
     usermod -aG fpga espuser && \
     usermod -aG plugdev espuser && \
     usermod -aG sudo espuser && \

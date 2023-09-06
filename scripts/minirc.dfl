@@ -29,7 +29,7 @@
 # DM23-0186
 
 # Machine-generated file - use "minicom -s" to change parameters.
-pu port             /dev/ttyUSB0
+pu port             /dev/ttyUSB1
 pu baudrate         38400
 pu bits             8
 pu parity           N
