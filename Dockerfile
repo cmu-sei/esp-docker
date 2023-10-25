@@ -29,104 +29,116 @@
 # DM23-0186
 
 
-FROM ubuntu:18.04
+FROM centos:7
 
 SHELL ["/bin/bash", "-c"]
 
 WORKDIR /home
 
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+# package list from
+#https://github.com/sld-columbia/esp-docker/blob/master/Dockerfile.centos7_full
+RUN yum update -y && \
+    yum install -y \
     autoconf \
+    automake \
     bc \
     bison \
-    build-essential \
     bzip2 \
-    cmake \
-    cpio \
+    chrpath \
     csh \
-    curl \
-    device-tree-compiler \
-    dh-autoreconf \
+    diffstat \
+    dtc \
     emacs \
-    environment-modules \
     file \
     flex \
-    gawk \
-    gcc-multilib \
+    gcc \
+    gcc-c++ \
+    gdbm-devel \
+    gdbm-devel.i686 \
     git \
+    glib2-devel \
+    glibc-devel \
+    glibc-devel.i686 \
+    glibc-static \
+    glibc-static.i686 \
     help2man \
-    jq \
+    java \
     ksh \
-    libgdbm-dev \
-    libgl1-mesa-dev \
-    libgl1-mesa-dri \
-    libgl1-mesa-glx \
-    libglu1-mesa \
-    libmotif-dev \
-    libmpc-dev \
-    libncurses5 \
-    libncurses-dev \
-    libnspr4 \
-    libnspr4-dev \
-    libopencv-dev \
-    libreadline-dev \
-    libsm-dev \
-    libxcursor-dev \
-    libxft-dev \
-    libxml-perl \
-    libxpm-dev \
-    libxrandr-dev \
-    libxss-dev \
-    libyaml-perl \
-    locales \
-    ninja-build \
+    libmpc-devel \
+    libmpc-devel.i686 \
+    libtool \
+    libSM \
+    libSM.i686 \
+    libXcursor \
+    libXcursor.i686 \
+    libXft \
+    libXft.i686 \
+    libXp \
+    libXp.i686 \
+    libXrandr \
+    libXrandr.i686 \
+    libXScrnSaver \
+    libXScrnSaver.i686 \
+    mesa-dri-drivers \
+    mesa-dri-drivers.i686 \
+    mesa-libGL.i686 \
+    mesa-libGLU.i686 \
+    mesa-libGL \
+    mesa-libGLU \
     minicom \
+    ncurses \
     net-tools \
-    octave \
-    octave-io \
+    nspr \
+    nspr.i686 \
+    nspr-devel \
+    nspr-devel.i686 \
+    openmotif \
     patch \
     perl \
+    perl-Capture-Tiny \
+    perl-Env \
+    perl-ExtUtils-MakeMaker \
+    perl-Thread-Queue \
+    perl-XML-Simple \
+    perl-YAML \
     python \
+    python-pip \
     python3 \
     python3-pip \
-    python3-tk \
-    qtcreator \
-    rename \
-    rsync \
+    python3-tkinter \
+    readline-devel \
+    readline-devel.i686 \
     socat \
-    software-properties-common \
-    sshpass \
     sudo \
     tcl \
     texinfo \
-    tig \
+    texinfo-tex \
     tk \
-    tk-dev \
+    tk-devel \
     tmux \
     unzip \
+    vim \
+    which \
     wget \
-    x11-apps \
+    xorg-x11-apps \
     xterm \
-    xvfb \
-    zlib1g-dev \
-    zsh && \
-    pip3 install Pmw && \
-    locale-gen en_US.UTF-8 && \
-    apt-get autoremove && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/*
+    Xvfb \
+    zsh
+
+RUN ln -s /lib64/libtiff.so.5 /lib64/libtiff.so.3 && \
+    ln -s /usr/lib64/libmpc.so.3 /usr/lib64/libmpc.so.2 && \
+    pip3 install Pmw
 
 # -l on adduser is to handle large uids, e.g.,
 # https://github.com/moby/moby/issues/5419
-RUN groupadd -g 18 fpga && \
-    useradd -l -ms /bin/bash espuser && \
+
+#  groupadd -g 18 fpga && \
+#  usermod -aG fpga espuser && \
+#  usermod -aG plugdev espuser && \
+#  usermod -aG sudo espuser && \
+
+RUN useradd -l -ms /bin/bash espuser && \
     usermod -aG dialout espuser && \
-    usermod -aG fpga espuser && \
-    usermod -aG plugdev espuser && \
-    usermod -aG sudo espuser && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -142,16 +154,21 @@ RUN git clone --recursive https://github.com/sld-columbia/esp.git && \
     git checkout tags/2023.1.0 -b 2023.1.0 && \
     cd /home/espuser/esp/accelerators/third-party/NV_NVDLA && \
     rm -rf ip/verif sw/prebuilt sw/regression && \
-    cd /home/espuser/esp && rm -rf utils/zynq && \
-    cd /home/espuser/esp && \
+    cd /home/espuser/esp && rm -rf utils/zynq
+
+RUN cd /home/espuser/esp && \
     (echo y; echo /home/espuser/riscv; echo 20; echo n; echo n; echo n) | bash utils/toolchain/build_riscv_toolchain.sh && rm -rf /tmp/_riscv_build
 
 # add files.
 ADD scripts ./scripts
 COPY ./scripts/bash_aliases /home/espuser/.bash_aliases
+RUN echo ". ~/.bash_aliases" >> ~/.bashrc
 
 # go in as root and change user in entrypoint.sh
 USER root
 COPY ./scripts/minirc.dfl /etc/minicom
+RUN mkdir -p /afs/ece.cmu.edu/support/cds && \
+    mkdir -p /afs/ece.cmu.edu/support/xilinx
+
 # set entrypoint
 ENTRYPOINT ["./scripts/entrypoint.sh"]

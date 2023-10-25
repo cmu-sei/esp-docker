@@ -28,9 +28,22 @@
 # Government use and distribution.
 # DM23-0186
 
-export XILINXD_LICENSE_FILE=/home/espuser/env/Xilinx.lic
-export VIVADO_PATH=/tools/Xilinx/Vivado/2019.2
+# Cadence: Stratus HLS, Incisive, XCelium
+CDS_PATH=/afs/ece.cmu.edu/support/cds/share/image/usr/cds
+STRATUS_PATH=${CDS_PATH}/stratus-18.20.100
+INCISIVE_PATH=${CDS_PATH}/incisiv-15.20.006
+XCELIUM_PATH=${CDS_PATH}/xcelium-22.03
+export BDW_INCISIVE_HOME=${XCELIUM_PATH}
+export LM_LICENSE_FILE=${CDS_PATH}/share/license/license.dat
+export PATH=$PATH:${STRATUS_PATH}/bin:${INCISIVE_PATH}/tools/cdsgcc/gcc/bin:${XCELIUM_PATH}/tools/cdsgcc/gcc/bin
+export CDS_AUTO_64BIT=all
+# export HOST=$(hostname) # for Ubuntu only
+
+export XILINX_PATH=/afs/ece.cmu.edu/support/xilinx
+export VIVADO_PATH=${XILINX_PATH}/xilinx/share/image/usr/local/xilinx/Vivado-2019.2/Vivado/2019.2
+export XILINXD_LICENSE_FILE=${VIVADO_PATH}/data/ip/core_licenses/Xilinx.lic
 . ${VIVADO_PATH}/settings64.sh
+
 export RISCV=/home/espuser/riscv
 export PATH=${RISCV}/bin:${PATH}
 export ESP_ROOT=/home/espuser/esp
