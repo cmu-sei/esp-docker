@@ -58,6 +58,7 @@ RUN apt-get update && \
     gcc-multilib \
     git \
     help2man \
+    iverilog \
     jq \
     ksh \
     libgdbm-dev \

@@ -62,6 +62,7 @@ cp /path/to/Xilinx.lic ./env/
 # run docker with compose. preferred. edit docker-compose.yml to match
 # your mount points.
 docker compose run -e UID=$(id -u) -e GID=$(id -g) esp
+
 # or without compose. NB: This only works if you can mount vivado as a volume.
 # The paths in that installation have to match the mount point in the
 # container for the environment setting scripts to work. Also have to update
