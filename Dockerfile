@@ -57,6 +57,7 @@ RUN apt-get update && \
     gawk \
     gcc-multilib \
     git \
+    gtkwave \
     help2man \
     iverilog \
     jq \
