@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 SHELL ["/bin/bash", "-c"]
 
@@ -60,7 +60,6 @@ RUN apt-get update && \
     octave-io \
     patch \
     perl \
-    python \
     python3 \
     python3-pip \
     python3-tk \
@@ -110,7 +109,7 @@ COPY --chown=espuser:espuser ./scripts/gitconfig /home/espuser/.gitconfig
 RUN git clone --recursive https://github.com/sld-columbia/esp.git && \
     cd /home/espuser/esp && \
     git fetch --all --tags --prune && \
-    git checkout tags/2023.1.0 -b 2023.1.0 && \
+    git checkout tags/2024.1.0 -b 2024.1.0 && \
     cd /home/espuser/esp/accelerators/third-party/NV_NVDLA && \
     rm -rf ip/verif sw/prebuilt sw/regression && \
     cd /home/espuser/esp && rm -rf utils/zynq && \

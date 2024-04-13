@@ -6,7 +6,7 @@ services:
       - vivado
     environment:
       - DISPLAY
-    image: esp:2023.1.0
+    image: esp:2024.1.0
     network_mode: host
     ports:
       - "127.0.0.1:3121-3122:3121-3122"
@@ -23,7 +23,7 @@ services:
       - xilinx:/tools:rw
 
   vivado:
-    image: vivado:18.04_2019.2
+    image: vivado:22.04_2023.2
     volumes:
       - xilinx:/tools:rw
 
