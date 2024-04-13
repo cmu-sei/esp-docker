@@ -23,7 +23,7 @@ services:
       - xilinx:/tools:rw
 
   vivado:
-    image: vivado:22.04_2023.2
+    image: vivado:20.04_2023.2
     volumes:
       - xilinx:/tools:rw
 

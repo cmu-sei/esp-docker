@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 SHELL ["/bin/bash", "-c"]
 
@@ -60,6 +60,7 @@ RUN apt-get update && \
     octave-io \
     patch \
     perl \
+    python \
     python3 \
     python3-pip \
     python3-tk \
@@ -112,8 +113,8 @@ RUN git clone --recursive https://github.com/sld-columbia/esp.git && \
     git checkout tags/2024.1.0 -b 2024.1.0 && \
     cd /home/espuser/esp/accelerators/third-party/NV_NVDLA && \
     rm -rf ip/verif sw/prebuilt sw/regression && \
-    cd /home/espuser/esp && rm -rf utils/zynq && \
-    cd /home/espuser/esp && \
+    cd /home/espuser/esp && rm -rf utils/zynq
+RUN cd /home/espuser/esp && \
     (echo y; echo /home/espuser/riscv; echo 20; echo n; echo n; echo n) | bash utils/toolchain/build_riscv_toolchain.sh && rm -rf /tmp/_riscv_build
 
 # add files.
