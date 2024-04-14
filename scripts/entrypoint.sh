@@ -19,6 +19,7 @@ chown -R espuser:espuser /home/espuser/esp/accelerators
 chown -R espuser:espuser /home/espuser/esp/socs
 chown -R espuser:espuser /home/espuser/esp/soft/ariane/linux/usr
 chown -R espuser:espuser /home/espuser/esp/tech
+chown -R espuser:espuser /home/espuser/esp/utils
 chown -R espuser:espuser /home/espuser/work
 
 # change user
