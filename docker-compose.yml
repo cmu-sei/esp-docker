@@ -20,12 +20,12 @@ services:
       - ./esp/socs/iris-soc:/home/espuser/esp/socs/iris-soc
       - ./esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc
       - ./work:/home/espuser/work
-      - vivado:/tools
+      - xilinx:/tools
 
-  vivado:
-    image: vivado:20.04_2023.2
+  xilinx:
+    image: xilinx:20.04_2023.2
     volumes:
-      - vivado:/tools
+      - xilinx:/tools
 
 volumes:
-  vivado: {}
+  xilinx: {}
