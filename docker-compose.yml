@@ -15,10 +15,11 @@ services:
       - ./env:/home/espuser/env
       - ./esp/accelerators/rtl/espacc_rtl:/home/espuser/esp/accelerators/rtl/espacc_rtl
       - ./esp/accelerators/hls4ml/iris_hls4ml:/home/espuser/esp/accelerators/hls4ml/iris_hls4ml
-      - ./esp/accelerators/rtl/rng_rtl:/home/espuser/esp/accelerators/rtl/rng_rtl
       - ./esp/accelerators/vivado_hls/ldpc_vivado:/home/espuser/esp/accelerators/vivado_hls/ldpc_vivado
+      - ./esp/socs/fft-soc:/home/espuser/esp/socs/fft-soc
       - ./esp/socs/iris-soc:/home/espuser/esp/socs/iris-soc
       - ./esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc
+      - ./esp/tech:/home/espuser/esp/tech
       - ./work:/home/espuser/work
       - xilinx:/tools
 
