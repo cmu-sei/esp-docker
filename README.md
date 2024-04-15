@@ -30,7 +30,13 @@ cp ~/.Xauthority ./env/
 cp /path/to/Xilinx.lic ./env/
 # run docker with compose. preferred. edit docker-compose.yml to match
 # your mount points.
-docker compose run -e UID=$(id -u) -e GID=$(id -g) esp
+docker compose run --rm -e UID=$(id -u) -e GID=$(id -g) esp
+# when you quit use down to stop dependencies
+docker compose down
+# if you've recently changed the xilinx image you might need to nuke the old
+# xilinx volume to create the correct new one. Creating the volume takes a
+# long time, so only delete the old volume if you really need to.
+docker volume prune --all
 
 # or without compose. NB: This only works if you can mount vivado as a volume.
 # The paths in that installation have to match the mount point in the
