@@ -3,7 +3,7 @@ services:
     build: .
     command: /bin/bash
     depends_on:
-      - vivado
+      - xilinx
     environment:
       - DISPLAY
     image: esp:2023.1.0
@@ -20,12 +20,12 @@ services:
       - ./esp/socs/iris-soc:/home/espuser/esp/socs/iris-soc
       - ./esp/socs/ldpc-soc:/home/espuser/esp/socs/ldpc-soc
       - ./work:/home/espuser/work
-      - xilinx:/tools:rw
+      - xilinx:/tools
 
-  vivado:
-    image: vivado:18.04_2019.2
+  xilinx:
+    image: xilinx:18.04_2019.2
     volumes:
-      - xilinx:/tools:rw
+      - xilinx:/tools
 
 volumes:
-  xilinx:
+  xilinx: {}
