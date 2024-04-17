@@ -8,6 +8,8 @@ export ESP_ROOT=/home/espuser/esp
 # for doing csim
 export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 
+umask 002
+
 echo "Setting up X forwarding"
 XAUTH=/home/espuser/env/.Xauthority
 if test -f "$XAUTH"; then

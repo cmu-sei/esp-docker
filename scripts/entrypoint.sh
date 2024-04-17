@@ -15,6 +15,7 @@ echo "Setting permissions. This can take a few minutes."
 chown espuser:espuser /home/espuser
 chown espuser:espuser /home/espuser/.bash_aliases
 chown -R espuser:espuser /home/espuser/env
+chown    espuser:espuser /home/espuser/esp
 chown -R espuser:espuser /home/espuser/esp/accelerators
 chown -R espuser:espuser /home/espuser/esp/socs
 chown -R espuser:espuser /home/espuser/esp/soft/ariane/linux/usr
