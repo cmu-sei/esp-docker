@@ -1,5 +1,6 @@
 export XILINXD_LICENSE_FILE=/home/espuser/env/Xilinx.lic
-export VIVADO_PATH=/tools/Xilinx/Vivado/2023.2
+VIVADO_VER=2023.2
+export VIVADO_PATH=/tools/Xilinx/Vivado/${VIVADO_VER}
 . ${VIVADO_PATH}/settings64.sh
 export RISCV=/home/espuser/riscv
 export PATH=${RISCV}/bin:${PATH}
