@@ -45,3 +45,13 @@ docker volume prune --all
 # within the container.
 docker run --rm -it --privileged --network=host -e DISPLAY=$DISPLAY -e UID=$(id -u) -e GID=$(id -g) -v`pwd`/env:/home/espuser/env:rw -v`pwd`/esp/socs/my-soc:/home/espuser/esp/socs/my-soc -v`pwd`/esp/accelerators/vivado_hls/my-accelerator_vivado:/home/espuser/esp/accelerators/vivado_hls/my-acclerator_vivado -v`pwd`/esp/accelerators/rtl/another-accelerator_rtl:/home/espuser/esp/accelerators/rtl/another-acclerator_rtl -v`pwd`/work:/home/espuser/work:rw -v/tools/Xilinx:/tools/Xilinx esp:2024.1.0
 ```
+
+## speed up you simulation
+Use `dummy.patch` as an example of how to patch your baremetal application
+to speed up RTL simulation that is run with
+```
+# develop and apply patch
+cd esp/socs/my-soc
+make my-accelerator_vivado-baremetal
+TEST_PROGRAM=./soft-build/ariane/baremetal/my-accelerator_vivado.exe make sim-gui
+```

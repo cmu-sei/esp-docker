@@ -1,0 +1,86 @@
+diff --git a/accelerators/stratus_hls/dummy_stratus/sw/baremetal/dummy.c b/accelerators/stratus_hls/dummy_stratus/sw/baremetal/dummy.c
+index 4eea094..7f63040 100644
+--- a/accelerators/stratus_hls/dummy_stratus/sw/baremetal/dummy.c
++++ b/accelerators/stratus_hls/dummy_stratus/sw/baremetal/dummy.c
+@@ -72,7 +72,7 @@ int main(int argc, char * argv[])
+ 	int n;
+ 	int ndev;
+ 	struct esp_device *espdevs;
+-	struct esp_device *dev;
++	struct esp_device dev;
+ 	struct esp_device *srcs[4];
+ 	unsigned all_done;
+ 	unsigned **ptable = NULL;
+@@ -84,21 +84,23 @@ int main(int argc, char * argv[])
+
+ 	printf("Scanning device tree... \n");
+
+-	ndev = probe(&espdevs, VENDOR_SLD, SLD_DUMMY, DEV_NAME);
+-	if (ndev < 1) {
++	//ndev = probe(&espdevs, VENDOR_SLD, SLD_DUMMY, DEV_NAME);
++	ndev = 1;
++    if (ndev < 1) {
+ 		printf("This test requires a dummy device!\n");
+ 		return 0;
+ 	}
+
+ 	// Check DMA capabilities
+-	dev = &espdevs[0];
++	dev.addr = 0x60010000; //for Ariane/Ibex
++    //dev.addr = 0x80010000; // for Leon3
+
+-	if (ioread32(dev, PT_NCHUNK_MAX_REG) == 0) {
++	if (ioread32(&dev, PT_NCHUNK_MAX_REG) == 0) {
+ 		printf("  -> scatter-gather DMA is disabled. Abort.\n");
+ 		return 0;
+ 	}
+
+-	if (ioread32(dev, PT_NCHUNK_MAX_REG) < NCHUNK) {
++	if (ioread32(&dev, PT_NCHUNK_MAX_REG) < NCHUNK) {
+ 		printf("  -> Not enough TLB entries available. Abort.\n");
+ 		return 0;
+ 	}
+@@ -117,31 +119,31 @@ int main(int argc, char * argv[])
+ 	printf("  Generate random input...\n");
+ 	init_buf(mem);
+
+-	iowrite32(dev, SELECT_REG, ioread32(dev, DEVID_REG));
+-	iowrite32(dev, COHERENCE_REG, ACC_COH_NONE);
+-	iowrite32(dev, PT_ADDRESS_REG, (unsigned long) ptable);
+-	iowrite32(dev, PT_NCHUNK_REG, NCHUNK);
+-	iowrite32(dev, PT_SHIFT_REG, CHUNK_SHIFT);
+-	iowrite32(dev, TOKENS_REG, TOKENS);
+-	iowrite32(dev, BATCH_REG, BATCH);
+-	iowrite32(dev, SRC_OFFSET_REG, 0x0);
+-	iowrite32(dev, DST_OFFSET_REG, out_offset);
++	iowrite32(&dev, COHERENCE_REG, ACC_COH_NONE); //if no caches enabled
++	iowrite32(&dev, COHERENCE_REG, ACC_COH_RECALL); //if caches enabled
++	iowrite32(&dev, PT_ADDRESS_REG, (unsigned long) ptable);
++	iowrite32(&dev, PT_NCHUNK_REG, NCHUNK);
++	iowrite32(&dev, PT_SHIFT_REG, CHUNK_SHIFT);
++	iowrite32(&dev, TOKENS_REG, TOKENS);
++	iowrite32(&dev, BATCH_REG, BATCH);
++	iowrite32(&dev, SRC_OFFSET_REG, 0x0);
++	iowrite32(&dev, DST_OFFSET_REG, out_offset);
+
+ 	// Flush for non-coherent DMA
+-	esp_flush(ACC_COH_NONE);
++	//esp_flush(ACC_COH_NONE);
+
+ 	// Start accelerators
+ 	printf("  Start...\n");
+-	iowrite32(dev, CMD_REG, CMD_MASK_START);
++	iowrite32(&dev, CMD_REG, CMD_MASK_START);
+
+ 	// Wait for completion
+ 	all_done = 0;
+ 	while (!all_done) {
+-		all_done = ioread32(dev, STATUS_REG);
++		all_done = ioread32(&dev, STATUS_REG);
+ 		all_done &= STATUS_MASK_DONE;
+ 	}
+
+-	iowrite32(dev, CMD_REG, 0x0);
++	iowrite32(&dev, CMD_REG, 0x0);
+
+ 	printf("  Done\n");
