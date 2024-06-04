@@ -33,6 +33,9 @@ cp /path/to/Xilinx.lic ./env/
 docker compose run --rm -e UID=$(id -u) -e GID=$(id -g) esp
 # when you quit use down to stop dependencies
 docker compose down
+# pruning can come in handy
+docker system prune
+docker network prune
 # if you've recently changed the xilinx image you might need to nuke the old
 # xilinx volume to create the correct new one. Creating the volume takes a
 # long time, so only delete the old volume if you really need to.
