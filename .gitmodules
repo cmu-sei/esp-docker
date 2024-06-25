@@ -1,0 +1,3 @@
+[submodule "esp/accelerators/rtl/espacc_rtl"]
+	path = esp/accelerators/rtl/espacc_rtl
+	url = https://github.com/cmu-sei/espacc_rtl.git

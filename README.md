@@ -3,6 +3,7 @@
 ## Build image (if needed)
 ```
 cd esp-docker
+git submodule update --init
 docker compose build
 # or
 docker build --rm --pull -f ./Dockerfile -t esp:2024.1.0 .
