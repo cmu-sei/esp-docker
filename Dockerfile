@@ -114,7 +114,7 @@ COPY --chown=espuser:espuser ./scripts/gitconfig /home/espuser/.gitconfig
 RUN git clone --recursive https://github.com/sld-columbia/esp.git && \
     cd /home/espuser/esp && \
     git fetch --all --tags --prune && \
-    git checkout tags/2024.1.0 -b 2024.1.0 && \
+    git checkout tags/2024.2.0 -b 2024.2.0 && \
     cd /home/espuser/esp/accelerators/third-party/NV_NVDLA && \
     rm -rf ip/verif sw/prebuilt sw/regression && \
     cd /home/espuser/esp && rm -rf utils/zynq

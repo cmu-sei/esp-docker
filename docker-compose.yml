@@ -6,7 +6,7 @@ services:
       - xilinx
     environment:
       - DISPLAY
-    image: esp:2024.1.0
+    image: esp:2024.2.0
     network_mode: host
     ports:
       - "127.0.0.1:3121-3122:3121-3122"

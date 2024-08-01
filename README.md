@@ -6,7 +6,7 @@ cd esp-docker
 git submodule update --init
 docker compose build
 # or
-docker build --rm --pull -f ./Dockerfile -t esp:2024.1.0 .
+docker build --rm --pull -f ./Dockerfile -t esp:2024.2.0 .
 ```
 
 ## Prepare
@@ -47,7 +47,7 @@ docker volume prune --all
 # container for the environment setting scripts to work. Also have to update
 # XILINX_VIVADO path in scripts/bash_aliases to match, or set it manually from
 # within the container.
-docker run --rm -it --privileged --network=host -e DISPLAY=$DISPLAY -e UID=$(id -u) -e GID=$(id -g) -v`pwd`/env:/home/espuser/env:rw -v`pwd`/esp/socs/my-soc:/home/espuser/esp/socs/my-soc -v`pwd`/esp/accelerators/vivado_hls/my-accelerator_vivado:/home/espuser/esp/accelerators/vivado_hls/my-acclerator_vivado -v`pwd`/esp/accelerators/rtl/another-accelerator_rtl:/home/espuser/esp/accelerators/rtl/another-acclerator_rtl -v`pwd`/work:/home/espuser/work:rw -v/tools/Xilinx:/tools/Xilinx esp:2024.1.0
+docker run --rm -it --privileged --network=host -e DISPLAY=$DISPLAY -e UID=$(id -u) -e GID=$(id -g) -v`pwd`/env:/home/espuser/env:rw -v`pwd`/esp/socs/my-soc:/home/espuser/esp/socs/my-soc -v`pwd`/esp/accelerators/vivado_hls/my-accelerator_vivado:/home/espuser/esp/accelerators/vivado_hls/my-acclerator_vivado -v`pwd`/esp/accelerators/rtl/another-accelerator_rtl:/home/espuser/esp/accelerators/rtl/another-acclerator_rtl -v`pwd`/work:/home/espuser/work:rw -v/tools/Xilinx:/tools/Xilinx esp:2024.2.0
 ```
 
 ## speed up your simulation
