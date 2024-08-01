@@ -43,6 +43,7 @@ RUN apt-get update && \
     libnspr4 \
     libnspr4-dev \
     libopencv-dev \
+    libpython3-dev \
     libreadline-dev \
     libsm-dev \
     libxcursor-dev \
@@ -78,13 +79,16 @@ RUN apt-get update && \
     tk-dev \
     tmux \
     unzip \
+    vim \
     wget \
     x11-apps \
     xterm \
     xvfb \
     zlib1g-dev \
     zsh && \
-    pip3 install Pmw && \
+    pip3 install \
+    cocotb[bus] \
+    Pmw && \
     locale-gen en_US.UTF-8 && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* && \
