@@ -1,5 +1,12 @@
 # esp
 
+## Clone
+```
+git clone --recursive git@github.com:cmu-sei/esp-docker.git
+cd esp-docker
+git checkout 2024.2.0
+```
+
 ## Build image (if needed)
 ```
 cd esp-docker
